@@ -2511,7 +2511,9 @@
 
     .footer-vector,
     .footer-ellipse {
-      min-width: 150vw;
+      width: 150vw;
+      min-width: 0;
+      max-width: 1000px;
     }
 
     .footer-logo {
