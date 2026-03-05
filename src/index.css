@@ -1620,17 +1620,18 @@
   }
 
   /* ================= RAD FOOTER ================= */
-.rad-footer {
-  position: relative;
-  /* height: 100vh;            Important for pinning */
-  overflow: hidden;
-  background: #100318;
-}
-.footer-curve-wrapper {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
+  .rad-footer {
+    position: relative;
+    /* height: 100vh;            Important for pinning */
+    overflow: hidden;
+    background: #100318;
+  }
+
+  .footer-curve-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
 
   .footer-vector {
     position: absolute;
@@ -1656,7 +1657,7 @@
     pointer-events: none;
     display: block;
     margin-top: -150px;
-     
+
   }
 
   .footer-logo {
@@ -1681,7 +1682,7 @@
     gap: 0 2.5rem;
     margin: 3.75rem 0 0;
     padding: 0 6vw;
-    background-color:#14001A;
+    background-color: #14001A;
   }
 
   .footer-col {
@@ -1691,7 +1692,7 @@
   }
 
   .footer-col a {
-    text-decoration: underline;
+    text-decoration: none;
     color: white;
     font-size: 1.3rem;
     opacity: 0.85;
@@ -1705,10 +1706,15 @@
   .footer-col a:hover {
     opacity: 1;
   }
-  .footer-logo, .footer-links, .footer-bottom-bar {
+
+  .footer-logo,
+  .footer-links,
+  .footer-bottom-bar {
     position: relative;
-    z-index: 10; /* Highest - stays on top of the curve */
+    z-index: 10;
+    /* Highest - stays on top of the curve */
   }
+
   .footer-col .copy {
     margin-top: 1.125rem;
     font-size: 0.6875rem;
@@ -2893,4 +2899,4 @@
     .footer-logo {
       padding-top: 24vw;
     }
-  } 
+  }
