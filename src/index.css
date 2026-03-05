@@ -1643,7 +1643,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    min-width: 1000px;
+    min-width: 6.25rem;
     z-index: 1;
     pointer-events: none;
     display: block;
@@ -1874,7 +1874,7 @@
 
     .footer-vector,
     .footer-ellipse {
-      min-width: 800px;
+      min-width: 10rem;
     }
 
 
