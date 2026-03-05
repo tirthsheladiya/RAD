@@ -1643,7 +1643,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    min-width: 6.25rem;
+    min-width: 40rem;
     z-index: 1;
     pointer-events: none;
     display: block;
@@ -1652,11 +1652,11 @@
 
   .footer-ellipse {
     position: absolute;
-    top: -2vw;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    min-width: 1000px;
+    min-width: 40rem;
     z-index: 5;
     pointer-events: none;
     display: block;
@@ -1667,7 +1667,7 @@
     position: relative;
     z-index: 3;
     text-align: center;
-    /* padding-top: 22%; */
+    padding-top: clamp(10rem, 18vw, 22rem);
   }
 
   .footer-logo img {
@@ -1874,12 +1874,12 @@
 
     .footer-vector,
     .footer-ellipse {
-      min-width: 10rem;
+      min-width: 35rem;
     }
 
 
     .footer-logo {
-      padding-top: 48vw;
+      padding-top: 14rem;
     }
   }
 
@@ -2304,11 +2304,11 @@
 
     .footer-vector,
     .footer-ellipse {
-      min-width: 120vw;
+      min-width: 30rem;
     }
 
     .footer-logo {
-      padding-top: 30vw;
+      padding-top: 12rem;
     }
   }
 
@@ -2511,13 +2511,13 @@
 
     .footer-vector,
     .footer-ellipse {
-      width: 150vw;
-      min-width: 0;
-      max-width: 1000px;
+      width: 100vw;
+      min-width: 25rem;
+      max-width: 45rem;
     }
 
     .footer-logo {
-      padding-top: 40vw;
+      padding-top: 9rem;
     }
 
     .footer-logo img {
