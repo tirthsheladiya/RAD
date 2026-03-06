@@ -11,7 +11,7 @@ const Footer = () => {
         />
         <img src="/assets/ellipse 47.png" className="footer-ellipse" alt="" />
       </div>
-      
+
       <div className="footer-logo">
         <img src="/assets/final-og-rad-small.gif" alt="RAD Logo" />
       </div>

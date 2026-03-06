@@ -818,21 +818,23 @@ export const initAnimations = (lenis) => {
       );
     }
 
-    // STEP 3: RE-INTEGRATE YOUR EXISTING ANIMATIONS
-    // Logo animation
+    // STEP 3: Logo animates WITH the ellipse on scroll
     if (logo) {
-      gsap.from(logo, {
-        scrollTrigger: {
-          trigger: footer,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-        y: -40,
-        opacity: 0,
-        duration: 1.6,
-        ease: "back.out(1.7)",
-        delay: 0.2,
-      });
+      gsap.fromTo(logo,
+        { y: "100%", scale: 1.2, opacity: 0 },
+        {
+          y: "0%",
+          scale: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: footer,
+            start: "top bottom",
+            end: "top top",
+            scrub: 1,
+          }
+        }
+      );
     }
 
     // Links/Columns animation
