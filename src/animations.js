@@ -486,9 +486,9 @@ export const initAnimations = (lenis) => {
     if (gamepad) {
       gsap.fromTo(
         gamepad,
-        { y: -80, rotation: -15, scale: 0.9 },
+        { y: -80, rotation: 20, scale: 0.9 },
         {
-          y: 70,
+          y: 40,
           rotation: 10,
           scale: 1.1,
           ease: "none",
@@ -509,7 +509,7 @@ export const initAnimations = (lenis) => {
         {
           y: -50,
           x: 20,
-          rotation: -5,
+          rotation: 25,
           scale: 1.1,
           ease: "none",
           scrollTrigger: {
@@ -715,11 +715,11 @@ export const initAnimations = (lenis) => {
       if (whyImg)
         gsap.fromTo(
           whyImg,
-          { y: 60, rotation: 10, scale: 0.9 },
+          { y: 60, rotation: 9, scale: 1.1 },
           {
-            y: -60,
+            y: -40,
             rotation: -10,
-            scale: 1.1,
+            scale: 2,
             ease: "none",
             scrollTrigger: {
               trigger: whySection,

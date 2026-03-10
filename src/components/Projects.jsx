@@ -10,6 +10,7 @@ const Projects = () => {
                         <div key={idx} className="marquee-item">
                             <img src="/assets/marquee-icon.png" className="default-img" alt="" />
                             <img src="/assets/marquee-icon2.png" className="hover-img" alt="" />
+                            {/* <img src="/assets/marquee-icon.png" className="default-img" alt="" /> */}
                         </div>
                     ))}
                 </div>
