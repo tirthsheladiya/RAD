@@ -78,15 +78,17 @@ export const initAnimations = (lenis) => {
     _pvY = 0,
     _lW = 0,
     _lH = 0;
-  function measureLogo() {
-    if (!logoWrapper) return;
-    const r = logoWrapper.getBoundingClientRect();
-    _lW = r.width;
-    _lH = r.height;
-    _pvX = window.innerWidth / 2;
-    _pvY = window.innerHeight / 2 - _lH * 0.15;
-  }
+function measureLogo() {
+  if (!logoWrapper) return;
 
+  const r = logoWrapper.getBoundingClientRect();
+
+  _lW = r.width;
+  _lH = r.height;
+
+  _pvX = window.innerWidth / 2;
+  _pvY = window.innerHeight / 2;
+}
   function aGapClip(s) {
     const apexRY = -0.22 * _lH;
     const baseRY = 0.13 * _lH;
@@ -99,7 +101,7 @@ export const initAnimations = (lenis) => {
     return `polygon(${ax.toFixed(1)}px ${ay.toFixed(1)}px, ${rx.toFixed(1)}px ${ry.toFixed(1)}px, ${lx.toFixed(1)}px ${ry.toFixed(1)}px)`;
   }
 
-  function setInitialState() {
+   function setInitialState() {
     if (logoWrapper) gsap.set(logoWrapper, { scale: 1, force3D: true });
     measureLogo();
 
@@ -691,12 +693,12 @@ export const initAnimations = (lenis) => {
   initPageStack();
 
   function initWhy() {
-    const whySection = document.querySelector(".why-section");
+    const whySection = document.querySelector(".why-rad");
     const newsletter = document.querySelector(".newsletter-section");
 
     if (whySection) {
       const whyCard = whySection.querySelector(".why-card");
-      const whyImg = whySection.querySelector(".why-main-img");
+      const whyImg = whySection.querySelector(".why-rad-main-img");
       const whyGlow = whySection.querySelector(".why-glow");
 
       if (whyCard)

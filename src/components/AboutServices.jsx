@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutServices = () => {
   return (
-    <section className="about-services">
+    <section className="about-services ">
       <div className="about-services-glow">
         <img src="/assets/glow.png" alt="" />
       </div>
@@ -11,11 +11,27 @@ const AboutServices = () => {
         <div className="about-text">
           <h2>ABOUT US</h2>
           <p>
-            Fandom is the new frontier of growth, and RAD Worldwide leads it by
-            connecting sports, entertainment, and creator IPs with fans through
-            meaningful products and collaborations. We go beyond licensing to
-            build cultural connections that turn attention into loyalty and
-            relevance into revenue.
+            We're a new generation licensing and brand partnerships agency built
+            for a world where culture moves fast and fandom drives value.{" "}
+          </p>
+          <br />
+
+          <p>
+            Our experience spans sports marketing, entertainment licensing,
+            retail innovation, and digital culture. We work across India, the
+            UK, GCC, and Southeast Asia, helping global IPs localise smartly and
+            local IPs go global.
+          </p>
+          <br />
+          <p>
+            We speak the language of both brands and fans. We know that IP today
+            isn't just about protection, it's about participation.{" "}
+          </p>
+          <br />
+          <p>
+            From sports rights holders and anime studios to creators and
+            lifestyle brands, we work with partners who want to build meaning,
+            not just merch.{" "}
           </p>
         </div>
         <div className="about-image">
@@ -72,105 +88,99 @@ const AboutServices = () => {
               </p>
             </div>
             <div className="mail-container">
-                <div className="mail-icons">
-                    <img className="mail" src="/assets/mail (1).png" alt="mail icon"></img>
-                </div>
-                <div className="mail-icons">
-                    <img src="/assets/linkedin.png" alt="mail icon"></img>
-                </div>
+              <div className="mail-icons">
+                <img
+                  className="mail"
+                  src="/assets/mail (1).png"
+                  alt="mail icon"
+                ></img>
+              </div>
+              <div className="mail-icons">
+                <img src="/assets/linkedin.png" alt="mail icon"></img>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="service-stack-scene">
-        <h2 className="services-title">SERVICES</h2>
-        <div className="service-stack-inner">
-          <div className="service-card premium-card" data-card="4">
-            <img src="/assets/glow.png" className="premium-glow-left" alt="" />
-            <img src="/assets/glow.png" className="premium-glow-right" alt="" />
-            <img src="/assets/grid.png" className="premium-grid" alt="" />
-            <div className="service-content premium-content">
-              <span className="premium-number">04</span>
-              <h3>
-                Fan Engagement
-                <br />& Community
-              </h3>
-              <p>
-                We design fan-first experiences that go beyond content —
-                activations, drops, and community programmes that turn passive
-                audiences into active brand advocates and long-term revenue
-                streams.
-              </p>
-            </div>
-            <img src="/assets/cap.png" className="premium-car" alt="Cap" />
-          </div>
+      <div className="service-stack-scene" id="services">
+                <h2 className="services-title">SERVICES</h2>
+                <div className="service-stack-inner">
+                    <div className="service-card premium-card" data-card="6">
+                        <img src="/assets/glow.png" className="premium-glow-left" alt="" />
+                        <img src="/assets/glow.png" className="premium-glow-right" alt="" />
+                        <img src="/assets/grid.png" className="premium-grid" alt="" />
+                        <div className="service-content premium-content">
+                            <span className="premium-number">06</span>
+                            <h3>Program Management<br />& Execution Oversight</h3>
+                            <p>We manage complexity across regions, categories, and partners — ensuring strategies translate into consistent execution while keeping clients aligned and in control.</p>
+                        </div>
+                        <img src="/assets/gamepad.png" className="premium-car" alt="Cap" />
+                    </div>
+                    <div className="service-card premium-card" data-card="5">
+                        <img src="/assets/glow.png" className="premium-glow-left" alt="" />
+                        <img src="/assets/glow.png" className="premium-glow-right" alt="" />
+                        <img src="/assets/grid.png" className="premium-grid" alt="" />
+                        <div className="service-content premium-content">
+                            <span className="premium-number">05</span>
+                            <h3>Partnerships, Brand Sales<br />& Collaborations</h3>
+                            <p>We unlock growth through strategic partnerships — from creator-led licensing and co-branded products to limited-edition drops and cultural collaborations that expand reach and drive revenue.</p>
+                        </div>
+                        <img src="/assets/cap.png" className="premium-car" alt="Cap" />
+                    </div>
+                    <div className="service-card premium-card" data-card="4">
+                        <img src="/assets/glow.png" className="premium-glow-left" alt="" />
+                        <img src="/assets/glow.png" className="premium-glow-right" alt="" />
+                        <img src="/assets/grid.png" className="premium-grid" alt="" />
+                        <div className="service-content premium-content">
+                            <span className="premium-number">04</span>
+                            <h3>Go-To-Market<br />& Omni-Channel Activation</h3>
+                            <p>We turn demand into revenue. From launch strategy to D2C, retail, and partner channels, we help clients activate, scale, and monetise across ecosystems with clarity and control.</p>
+                        </div>
+                        <img src="/assets/shirt.png" className="premium-car" alt="Cap" />
+                    </div>
+                    <div className="service-card premium-card" data-card="3">
+                        <img src="/assets/glow.png" className="premium-glow-left" alt="" />
+                        <img src="/assets/glow.png" className="premium-glow-right" alt="" />
+                        <img src="/assets/grid.png" className="premium-grid" alt="" />
+                        <div className="service-content premium-content">
+                            <span className="premium-number">03</span>
+                            <h3>Brand , Content<br />& Create Advisory</h3>
+                            <p>We shape brands and content systems that convert attention into demand. From positioning and storytelling to creative direction, we ensure every output strengthens IP value and monetisation.</p>
+                        </div>
+                        <img src="/assets/shoe.png" className="premium-car" alt="Cap" />
+                    </div>
 
-          <div className="service-card premium-card" data-card="3">
-            <img src="/assets/glow.png" className="premium-glow-left" alt="" />
-            <img src="/assets/glow.png" className="premium-glow-right" alt="" />
-            <img src="/assets/grid.png" className="premium-grid" alt="" />
-            <div className="service-content premium-content">
-              <span className="premium-number">03</span>
-              <h3>
-                Creator & Talent
-                <br />
-                IP Development
-              </h3>
-              <p>
-                We work with creators and talent to build sustainable IP
-                ecosystems — from merchandise strategy and brand partnerships to
-                long-term licensing structures that grow with their audience.
-              </p>
-            </div>
-            <img
-              src="/assets/gamepad.png"
-              className="premium-car"
-              alt="Gamepad"
-            />
-          </div>
 
-          <div className="service-card premium-card" data-card="2">
-            <img src="/assets/glow.png" className="premium-glow-left" alt="" />
-            <img src="/assets/glow.png" className="premium-glow-right" alt="" />
-            <img src="/assets/grid.png" className="premium-grid" alt="" />
-            <div className="service-content premium-content">
-              <span className="premium-number">02</span>
-              <h3>
-                Brand & IP
-                <br />
-                Partnerships
-              </h3>
-              <p>
-                We connect brands with the right sports, entertainment, and
-                creator IPs to build co-branded products and campaigns that feel
-                culturally authentic and drive measurable commercial results.
-              </p>
-            </div>
-            <img src="/assets/shirt.png" className="premium-car" alt="Shirt" />
-          </div>
 
-          <div className="service-card premium-card" data-card="1">
-            <img src="/assets/glow.png" className="premium-glow-left" alt="" />
-            <img src="/assets/glow.png" className="premium-glow-right" alt="" />
-            <img src="/assets/grid.png" className="premium-grid" alt="" />
-            <div className="service-content premium-content">
-              <span className="premium-number">01</span>
-              <h3>
-                Licensing Strategy
-                <br />& Commercial Design
-              </h3>
-              <p>
-                We build licensing strategies that scale. From IP positioning
-                and category planning to territory strategy and deal structures,
-                we align creative ambition with revenue goals — creating clear,
-                decision-ready roadmaps for growth.
-              </p>
+                    <div className="service-card premium-card" data-card="2">
+                        <img src="/assets/glow.png" className="premium-glow-left" alt="" />
+                        <img src="/assets/glow.png" className="premium-glow-right" alt="" />
+                        <img src="/assets/grid.png" className="premium-grid" alt="" />
+                        <div className="service-content premium-content">
+                            <span className="premium-number">02</span>
+                            <h3>International Market Entry &<br />Expansion</h3>
+                            <p>We design territory-specific market entry models that balance speed, control, and long-term value — helping brands expand globally while staying culturally relevant.</p>
+                        </div>
+                        <img src="/assets/music.png" className="premium-car" alt="Gamepad" />
+                    </div>
+
+
+
+                    <div className="service-card premium-card" data-card="1">
+                        <img src="/assets/glow.png" className="premium-glow-left" alt="" />
+                        <img src="/assets/glow.png" className="premium-glow-right" alt="" />
+                        <img src="/assets/grid.png" className="premium-grid" alt="" />
+                        <div className="service-content premium-content">
+                            <span className="premium-number">01</span>
+                            <h3>Licensing Strategy<br />& Commercial Design</h3>
+                            <p>We build licensing strategies that scale. From IP positioning and category planning to territory strategy and deal structures, we align creative ambition with revenue goals — creating clear, decision-ready roadmaps for growth.</p>
+                        </div>
+                        <img src="/assets/car.png" className="premium-car" alt="Car" />
+                    </div>
+
+                </div>
             </div>
-            <img src="/assets/car.png" className="premium-car" alt="Car" />
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
