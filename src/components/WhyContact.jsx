@@ -42,9 +42,9 @@ const WhyContact = () => {
           </div>
           <div className="why-rad-image">
             <img
-              src="/assets/whyimg.png"
+              src="/assets/whyimg.svg"
               className="why-rad-main-img"
-              alt="About"
+              alt="question mark"
             />
           </div>
         </div>
@@ -103,6 +103,7 @@ const WhyContact = () => {
 
             </div>
 
+            <div className="row-grp">
             <div className="field subject">
               <label>SUBJECT</label>
 
@@ -125,7 +126,7 @@ const WhyContact = () => {
               ></textarea>
 
             </div>
-
+            </div>
             <button type="submit">
               SEND MESSAGE
             </button>

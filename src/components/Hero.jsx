@@ -15,16 +15,16 @@ const Hero = () => {
                 </p>
             </div>
 
-            <img src="/assets/car.png" className="float car" alt="" />
-            <img src="/assets/car.png" className="float car2" alt="" />
-            <img src="/assets/gamepad.png" className="float gamepad" alt="" />
-            <img src="/assets/shirt.png" className="float shirt" alt="" />
-            <img src="/assets/shirt.png" className="float shirt2" alt="" />
-            <img src="/assets/cap.png" className="float cap" alt="" />
-            <img src="/assets/music.png" className="float music" alt="" />
-            <img src="/assets/music.png" className="float music2" alt="" />
-            <img src="/assets/shoe.png" className="float shoe" alt="" />
-            <img src="/assets/shoe.png" className="float shoe2" alt="" />
+            <img src="/assets/car.svg" className="float car" alt="" />
+            <img src="/assets/car.svg" className="float car2" alt="" />
+            <img src="/assets/gamepad.svg" className="float gamepad" alt="" />
+            <img src="/assets/shirt.svg" className="float shirt" alt="" />
+            <img src="/assets/shirt.svg" className="float shirt2" alt="" />
+            <img src="/assets/cap.svg" className="float cap" alt="" />
+            <img src="/assets/music.svg" className="float music" alt="" />
+            <img src="/assets/music.svg" className="float music2" alt="" />
+            <img src="/assets/shoe.svg" className="float shoe" alt="" />
+            <img src="/assets/shoe.svg" className="float shoe2" alt="" />
             {/* <img src="/assets/scrolldown.png" className="scroll-down" alt="" /> */}
         </section>
     );

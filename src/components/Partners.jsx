@@ -11,7 +11,7 @@ const Partners = () => {
       <div className="partners-row row-2">
         <div className="partner-card1">
           <div className="card-inner">
-            <img src="/assets/shirt.png" className="partner-main-img" alt="" />
+            <img src="/assets/shirt.svg" className="partner-main-img" alt="shirt" />
             <img src="/assets/glow.png" className="partner-glow" alt="" />
           </div>
           <span className="card-number">01</span>
@@ -25,9 +25,9 @@ const Partners = () => {
         <div className="partner-card2">
           <div className="card-inner">
             <img
-              src="/assets/gamepad.png"
+              src="/assets/gamepad.svg"
               className="partner-main-img"
-              alt=""
+              alt="gamepad"
             />
             <img src="/assets/glow.png" className="partner-glow" alt="" />
           </div>
@@ -44,7 +44,7 @@ const Partners = () => {
       <div className="partners-row row-3">
         <div className="partner-card3">
           <div className="card-inner">
-            <img src="/assets/cap.png" className="partner-main-img" alt="" />
+            <img src="/assets/cap.svg" className="partner-main-img" alt="cap" />
             <img src="/assets/glow.png" className="partner-glow" alt="" />
           </div>
           <span className="card-number">03</span>
@@ -57,7 +57,7 @@ const Partners = () => {
 
         <div className="partner-card4">
           <div className="card-inner">
-            <img src="/assets/car.png" className="partner-main-img" alt="" />
+            <img src="/assets/car.svg" className="partner-main-img" alt="car" />
             <img src="/assets/glow.png" className="partner-glow" alt="" />
           </div>
           <span className="card-number">04</span>
@@ -70,7 +70,7 @@ const Partners = () => {
 
         <div className="partner-card5">
           <div className="card-inner">
-            <img src="/assets/music.png" className="partner-main-img" alt="" />
+            <img src="/assets/music.svg" className="partner-main-img" alt="music" />
             <img src="/assets/glow.png" className="partner-glow" alt="" />
           </div>
           <span className="card-number">05</span>
