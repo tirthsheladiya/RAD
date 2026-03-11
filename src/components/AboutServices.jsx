@@ -2,11 +2,11 @@ import React from "react";
 
 const AboutServices = () => {
   return (
-    <section className="about-services ">
-      <div className="about-services-glow">
+    <section className="about-services " >
+      <div className="about-services-glow" >
         <img src="/assets/glow.png" alt="" />
       </div>
-      <div className="about-card">
+      <div className="about-card" id="about">
         <img src="/assets/glow.png" className="about-card-bg-glow" alt="" />
         <h2 className="about-title">ABOUT US</h2>
         <div className="about-text">

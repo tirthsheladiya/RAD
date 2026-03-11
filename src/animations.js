@@ -18,8 +18,11 @@ export const initLenis = () => {
 
   lenis.on("scroll", ScrollTrigger.update);
   gsapCore.ticker.add((time) => lenis.raf(time * 1000));
-  gsapCore.ticker.lagSmoothing(500, 33); // Allows GSAP to catch up if a frame drops
+  gsapCore.ticker.lagSmoothing(500, 33);
 
+  window.lenis = lenis; 
+
+  return lenis;
   let bar = document.getElementById("scroll-progress");
   if (!bar) {
     bar = document.createElement("div");
@@ -124,61 +127,59 @@ export const initAnimations = (lenis) => {
   setInitialState();
 
   function initHeroPremiumFloat() {
+    const floats = document.querySelectorAll(
+      ".hero-section .float ,.founder-gamepad,.founder-car",
+    );
 
-  const floats = document.querySelectorAll(".hero-section .float, .intro-float");
+    if (!floats.length) return;
 
-  if (!floats.length) return;
+    let t = 0;
 
-  let t = 0;
+    const animate = () => {
+      t += 0.02;
 
-  const animate = () => {
-    t += 0.02;
+      floats.forEach((el, i) => {
+        const yRange = window.innerWidth < 768 ? 8 : 18;
+        const rotRange = i % 2 === 0 ? 6 : -6;
+        const phase = i * 0.6;
 
-    floats.forEach((el, i) => {
+        const y = Math.sin(t + phase) * yRange;
+        const rot = Math.cos(t + phase) * rotRange;
+        const scale = 1 + Math.sin(t + phase) * 0.03;
 
-      const yRange = window.innerWidth < 768 ? 8 : 18;
-      const rotRange = i % 2 === 0 ? 6 : -6;
-      const phase = i * 0.6;
+        el.style.transform = `translate3d(0, ${y}px, 0) rotate(${rot}deg) scale(${scale})`;
+      });
 
-      const y = Math.sin(t + phase) * yRange;
-      const rot = Math.cos(t + phase) * rotRange;
-      const scale = 1 + Math.sin(t + phase) * 0.03;
-
-      el.style.transform =
-        `translate3d(0, ${y}px, 0) rotate(${rot}deg) scale(${scale})`;
-
-    });
+      requestAnimationFrame(animate);
+    };
 
     requestAnimationFrame(animate);
-  };
+  }
 
-  requestAnimationFrame(animate);
-}
+  initHeroPremiumFloat();
+  function initNewsletterShake() {
+    const section = document.querySelector(".newsletter-container");
+    if (!section) return;
 
-initHeroPremiumFloat();
-function initNewsletterShake() {
-  const section = document.querySelector(".newsletter-container");
-  if (!section) return;
+    section.addEventListener("mouseenter", () => {
+      gsap.fromTo(
+        section,
+        { x: 0, rotation: 0 },
+        {
+          keyframes: [
+            { x: -6, rotation: -1.5, duration: 0.05 },
+            { x: 6, rotation: 1.5, duration: 0.05 },
+            { x: -4, rotation: -1, duration: 0.05 },
+            { x: 4, rotation: 1, duration: 0.05 },
+            { x: 0, rotation: 0, duration: 0.08 },
+          ],
+          ease: "power2.out",
+        },
+      );
+    });
+  }
 
-  section.addEventListener("mouseenter", () => {
-    gsap.fromTo(
-      section,
-      { x: 0, rotation: 0 },
-      {
-        keyframes: [
-          { x: -6, rotation: -1.5, duration: 0.05 },
-          { x: 6, rotation: 1.5, duration: 0.05 },
-          { x: -4, rotation: -1, duration: 0.05 },
-          { x: 4, rotation: 1, duration: 0.05 },
-          { x: 0, rotation: 0, duration: 0.08 }
-        ],
-        ease: "power2.out"
-      }
-    );
-  });
-}
-
-initNewsletterShake();
+  initNewsletterShake();
   let introST;
   let navbarShown = false;
 
@@ -284,34 +285,7 @@ initNewsletterShake();
   }
   createIntro();
 
-  function initNavbarVisibility() {
-    const aboutServices = document.querySelector(".about-services");
-    if (!aboutServices || !heroNavbar) return;
 
-    ScrollTrigger.create({
-      trigger: aboutServices,
-      start: "top top",
-      onEnter: () => {
-        gsap.to(heroNavbar, {
-          opacity: 0,
-          duration: 0.45,
-          ease: "power4.out",
-          pointerEvents: "none",
-        });
-      },
-      onLeaveBack: () => {
-        if (navbarShown) {
-          gsap.to(heroNavbar, {
-            opacity: 1,
-            duration: 0.45,
-            ease: "power4.out",
-            pointerEvents: "auto",
-          });
-        }
-      },
-    });
-  }
-  initNavbarVisibility();
 
   let serviceST;
   function createServices() {
@@ -327,7 +301,7 @@ initNewsletterShake();
     if (!scene || !cards.length) return;
 
     const reversed = [...cards].reverse();
-    const peekY = [0, 20, 40, 60];
+    const peekY = [-30, 20, 40, 60];
     const peekScale = [1, 0.97, 0.94, 0.91];
 
     reversed.forEach((card, i) => {
@@ -343,7 +317,7 @@ initNewsletterShake();
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: scene,
-        start: "top 12%",
+        start: "top 14%",
         end: `+=${(reversed.length - 1) * scrollPerCard}`,
         scrub: 1,
         pin: true,
@@ -695,23 +669,23 @@ initNewsletterShake();
           duration: 1.6,
           ease: "power4.out",
         });
-   if (whyImg)
-  gsap.fromTo(
-    whyImg,
-    { y: 60, rotation: 10, scale: 0.9 },
-    {
-      y: -60,
-      rotation: -10,
-      scale: 1.1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: whyCard,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1,
-      },
-    }
-  );
+      if (whyImg)
+        gsap.fromTo(
+          whyImg,
+          { y: 60, rotation: 10, scale: 0.9 },
+          {
+            y: -60,
+            rotation: -10,
+            scale: 1.1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: whyCard,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
       if (whyGlow)
         gsap.to(whyGlow, {
           rotation: -180,
@@ -744,7 +718,7 @@ initNewsletterShake();
           duration: 1.6,
           ease: "power4.out",
         });
-      if (radar)
+      if (radar && !isMobile()) {
         gsap.fromTo(
           radar,
           { y: 80, rotation: -15, scale: 0.85 },
@@ -761,6 +735,7 @@ initNewsletterShake();
             },
           },
         );
+      }
     }
   }
   initWhy();
@@ -829,78 +804,78 @@ initNewsletterShake();
   }
   initContact();
 
-function initFooter() {
-  const footer = document.querySelector(".rad-footer");
-  const vector = document.querySelector(".footer-vector"); // This is the "RAD WORLDWIDE" text
-  const ellipse = document.querySelector(".footer-ellipse"); // This is the curve
-  const content = document.querySelector(".footer-links");
-  const logo = document.querySelector(".footer-logo");
-  const cols = document.querySelectorAll(".footer-col");
+  function initFooter() {
+    const footer = document.querySelector(".rad-footer");
+    const vector = document.querySelector(".footer-vector"); // This is the "RAD WORLDWIDE" text
+    const ellipse = document.querySelector(".footer-ellipse"); // This is the curve
+    const content = document.querySelector(".footer-links");
+    const logo = document.querySelector(".footer-logo");
+    const cols = document.querySelectorAll(".footer-col");
 
-  if (!footer || !vector) return;
+    if (!footer || !vector) return;
 
-  
-  ScrollTrigger.create({
-    trigger: footer,
-    start: "top top", 
-    end: "bottom bottom", 
-    pin: ".footer-vector", 
-    pinSpacing: false,
-  });
+    ScrollTrigger.create({
+      trigger: footer,
+      start: "top top",
+      end: "bottom bottom",
+      pin: ".footer-vector",
+      pinSpacing: false,
+    });
 
-  // STEP 2: OVERLAY THE CURVE
-  // This animates the curved ellipse sliding UP to cover the text
-  if (ellipse) {
-    gsap.fromTo(ellipse, 
-      { y: "100%", scale: 1.2 }, // Start below the text
-      {
-        y: "0%", 
-        scale: 1,
-        ease: "none",
+    // STEP 2: OVERLAY THE CURVE
+    // This animates the curved ellipse sliding UP to cover the text
+    if (ellipse) {
+      gsap.fromTo(
+        ellipse,
+        { y: "100%", scale: 1.2 }, // Start below the text
+        {
+          y: "0%",
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: footer,
+            start: "top bottom",
+            end: "top top",
+            scrub: 1,
+          },
+        },
+      );
+    }
+
+    // STEP 3: RE-INTEGRATE YOUR EXISTING ANIMATIONS
+    // Logo animation
+    if (logo) {
+      gsap.from(logo, {
         scrollTrigger: {
           trigger: footer,
-          start: "top bottom",
-          end: "top top",
-          scrub: 1,
-        }
-      }
-    );
-  }
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        y: -40,
+        opacity: 0,
+        duration: 1.6,
+        ease: "back.out(1.7)",
+        delay: 0.2,
+      });
+    }
 
-  // STEP 3: RE-INTEGRATE YOUR EXISTING ANIMATIONS
-  // Logo animation
-  if (logo) {
-    gsap.from(logo, {
-      scrollTrigger: {
-        trigger: footer,
-        start: "top 80%",
-        toggleActions: "play none none reverse",
-      },
-      y: -40,
-      opacity: 0,
-      duration: 1.6,
-      ease: "back.out(1.7)",
-      delay: 0.2,
-    });
+    // Links/Columns animation
+    if (cols.length) {
+      gsap.from(cols, {
+        scrollTrigger: {
+          trigger: footer,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+        y: 35,
+        opacity: 0,
+        stagger: 0.08,
+        duration: 1.6,
+        ease: "power4.out",
+        delay: 0.4,
+      });
+    }
   }
-
-  // Links/Columns animation
-  if (cols.length) {
-    gsap.from(cols, {
-      scrollTrigger: {
-        trigger: footer,
-        start: "top 75%",
-        toggleActions: "play none none reverse",
-      },
-      y: 35,
-      opacity: 0,
-      stagger: 0.08,
-      duration: 1.6,
-      ease: "power4.out",
-      delay: 0.4,
-    });
-  }
-}
   initFooter();
 
   let resizeTimer;

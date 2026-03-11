@@ -2,7 +2,7 @@ import React from 'react';
 
 const Hero = () => {
     return (
-        <section className="hero-section">
+        <section className="hero-section" id="home">
             <div className="hero-content">
                 <div className="tag-pill">Relevance, Access & Distribution</div>
                 <h1>Fandom is the new frontier<br />of brand growth.</h1>

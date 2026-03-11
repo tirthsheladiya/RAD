@@ -75,7 +75,7 @@ const WhyContact = () => {
         </div>
       </section>
 
-      <div className="contact-body">
+      <div className="contact-body" id="contact">
 
         <div className="container">
 
