@@ -1,14 +1,29 @@
 import React from "react";
 
+const scrollToSection = (id) => {
+  const target = document.querySelector(id);
+
+  if (!target) return;
+
+  if (window.lenis) {
+    window.lenis.scrollTo(target, {
+      offset: -120,
+      duration: 2,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
+    });
+  } else {
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+
 const Footer = () => {
   return (
     <footer className="rad-footer">
       <div className="footer-curve-wrapper">
-        <img
-          src="/assets/vector.png"
-          className="footer-vector"
-          alt="RAD WORLDWIDE"
-        />
+        <img src="/assets/vector.png" className="footer-vector" alt="RAD WORLDWIDE"/>
         <img src="/assets/ellipse 47.png" className="footer-ellipse" alt="" />
       </div>
 
@@ -18,44 +33,59 @@ const Footer = () => {
 
       <div className="footer-links">
         <div className="footer-col">
-          <a href="#">Who are we</a>
-          <a href="#">Services</a>
-          <a href="#">Who we partner with</a>
-          <a href="#">About</a>
-          <a href="#">Projects/Clients</a>
-          <a href="#">Why Rad Worldwide</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#who-we-are")}}>Who are we</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#services")}}>Services</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#partners")}}>Who we partner with</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#about")}}>About</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#clients")}}>Projects/Clients</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#why-rad")}}>Why Rad Worldwide</a>
         </div>
+
         <div className="footer-col footer-newsletter">
           <span className="newsletter-title">
-            Subscribe to
-            <br />
-            Licensing Radar
-            <br />
-            Newsletter
+            Subscribe to<br/>Licensing Radar<br/>Newsletter
           </span>
-          <a href="#" className="newsletter-btn">
-            READ THE NEWSLETTER
+
+          <a
+            href="https://licensingradar.beehiiv.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-btn"
+          >
+            <span className="btn-text">READ THE NEWSLETTER</span>
+             <span className="btn-shine"></span>
+          <span className="btn-ring"></span>
           </a>
         </div>
+
         <div className="footer-col footer-col-2">
-          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">Terms & Conditions</a>
           <a href="#">Privacy Policy</a>
           <a href="#">Cookie Policy</a>
           <a href="#">Accessibility</a>
+
           <div className="footer-social">
             <span className="social-label">Follow us on</span>
+
             <div className="social-icons">
-              <a href="#" className="social-icon si-fb">
-                <img src="/assets/facebook.png" alt="" />
+              <a href="https://www.linkedin.com/company/rad-worldwide/" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/linkedinlogo.png" alt="" />
               </a>
-              <a href="#" className="social-icon si-ig">
+
+              <a href="https://www.instagram.com/licensingradar/" target="_blank" rel="noopener noreferrer">
                 <img src="/assets/instagram.png" alt="" />
               </a>
-              <a href="#" className="social-icon si-li">
-                <img src="/assets/linkedinlogo.png" alt="" />
+
+              <a href="https://x.com/licensingradar" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/x.png" alt="" />
+              </a>
+
+              <a href="https://linktr.ee/radworldwide" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/linktree.png" alt="" />
               </a>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -63,6 +93,7 @@ const Footer = () => {
         <span className="footer-copy">©RADWORLDWIDE 2026</span>
         <span className="footer-tagline">Let’s build something RAD!</span>
       </div>
+
     </footer>
   );
 };

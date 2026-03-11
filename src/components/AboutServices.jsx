@@ -2,8 +2,8 @@ import React from "react";
 
 const AboutServices = () => {
   return (
-    <section className="about-services " >
-      <div className="about-services-glow" >
+    <section className="about-services ">
+      <div className="about-services-glow">
         <img src="/assets/glow.png" alt="" />
       </div>
       <div className="about-card" id="about">
@@ -44,7 +44,11 @@ const AboutServices = () => {
       </div>
 
       <div className="founder-section">
-        <img src="/assets/gamepad.svg" className="founder-gamepad" alt="gamepad" />
+        <img
+          src="/assets/gamepad.svg"
+          className="founder-gamepad"
+          alt="gamepad"
+        />
         <img src="/assets/cap.svg" className="founder-car" alt="cap" />
         <div className="founder-card">
           <div className="left">
@@ -88,12 +92,16 @@ const AboutServices = () => {
               </p>
             </div>
             <div className="mail-container">
-              <a href="mailto:hello@radworldwide.com" className="mail-icons">
+              <a href="https://licensingradar.beehiiv.com/" 
+               target="_blank"
+              className="mail-icons">
                 <img
                   className="mail"
                   src="/assets/mail (1).png"
                   alt="mail icon"
                 />
+                <span className="btn-shine"></span>
+                <span className="btn-ring"></span>
               </a>
 
               <a
@@ -104,6 +112,8 @@ const AboutServices = () => {
                 aria-label="LinkedIn Profile"
               >
                 <img src="/assets/linkedin.png" alt="linkedin icon" />
+                <span className="btn-shine"></span>
+                <span className="btn-ring"></span>
               </a>
             </div>
           </div>
@@ -129,7 +139,11 @@ const AboutServices = () => {
                 keeping clients aligned and in control.
               </p>
             </div>
-            <img src="/assets/gamepad.svg" className="premium-car" alt="gamepad" />
+            <img
+              src="/assets/gamepad.svg"
+              className="premium-car"
+              alt="gamepad"
+            />
           </div>
           <div className="service-card premium-card" data-card="5">
             <img src="/assets/glow.png" className="premium-glow-left" alt="" />
@@ -203,11 +217,7 @@ const AboutServices = () => {
                 globally while staying culturally relevant.
               </p>
             </div>
-            <img
-              src="/assets/music.svg"
-              className="premium-car"
-              alt="Music"
-            />
+            <img src="/assets/music.svg" className="premium-car" alt="Music" />
           </div>
 
           <div className="service-card premium-card" data-card="1">

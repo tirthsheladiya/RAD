@@ -2,7 +2,7 @@ import React from "react";
 
 const Partners = () => {
   return (
-    <section className="partners-section">
+    <section  id="partners" className="partners-section">
       <div className="partners-glow">
         <img src="/assets/glow.png" alt="" />
       </div>

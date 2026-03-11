@@ -1,6 +1,15 @@
 import React from 'react';
 
 const Projects = () => {
+    const projectsData = [
+        { id: 1, src: "/assets/marquee-icon.png", text: <>Action Figures and Toys <br />category ownership & Project <br />Management</> },
+        { id: 2, src: "/assets/kid-krish.png", text: <>IP DEVELOPMENT &<br />PROJECT MANAGEMENT</> },
+        { id: 3, src: "/assets/XPLORE.png", text: <>GTM strategy &<br />Project Management</> },
+        { id: 4, src: "/assets/MLB.png", text: <>GTM strategy (India) &<br />Influencers-based IP Development</> },
+        { id: 5, src: "/assets/HRX.png", text: <>Marketing & Category <br /> Expansion</> },
+        { id: 6, src: "/assets/CRICKET.png", text: <>GTM startegy, Omni-<br />channel marketing & License acquisition</> }
+    ];
+
     return (
         <section className="projects-section" id="clients">
             <h2 className="projects-title">PROJECTS/CLIENTS</h2>
@@ -8,31 +17,15 @@ const Projects = () => {
                 <div className="marquee-track">
                     {[1, 2, 3, 4, 5, 6].map((idx) => (
                         <div key={idx} className="marquee-item">
-                            
-                            <div className="logo-wrapper">
-                                <img src="/assets/marquee-icon.png" className="default-img" alt="" />
-                                <div className="hover-text">Action Figures and Toys <br />category ownership & Project <br />Management</div>
-                            </div>
-                            <div className="logo-wrapper">
-                                <img src="/assets/kid-krish.png" className="default-img" alt="" />
-                                <div className="hover-text">IP DEVELOPMENT &<br />PROJECT MANAGEMENT</div>
-                            </div>
-                            <div className="logo-wrapper">
-                                <img src="/assets/XPLORE.png" className="default-img" alt="" />
-                                <div className="hover-text">GTM strategy &<br />Project Management</div>
-                            </div>
-                            <div className="logo-wrapper">
-                                <img src="/assets/MLB.png" className="default-img" alt="" />
-                                <div className="hover-text">GTM strategy (India) &<br />Influencers-based IP Development</div>
-                            </div>
-                            <div className="logo-wrapper">
-                                <img src="/assets/HRX.png" className="default-img" alt="" />
-                                <div className="hover-text">Marketing & Category <br /> Expansion</div>
-                            </div>
-                            <div className="logo-wrapper">
-                                <img src="/assets/CRICKET.png" className="default-img" alt="" />
-                                <div className="hover-text">GTM startegy, Omni-<br />channel marketing & License acquisition</div>
-                            </div>
+                            {projectsData.map((project) => (
+                                <div key={project.id} className="logo-wrapper">
+                                    <img src={project.src} className="default-img" alt="" />
+                                    <div className="hover-text">
+                                        <img src={project.src} className="hover-logo" alt="" />
+                                        <span>{project.text}</span>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     ))}
                 </div>

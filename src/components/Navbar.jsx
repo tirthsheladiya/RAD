@@ -22,29 +22,28 @@ const Navbar = () => {
   const closeMenu = () => {
     setIsOpen(false);
   };
-const scrollToSection = (id) => {
+  const scrollToSection = (id) => {
+    if (!window.lenis) return;
 
-  if (!window.lenis) return;
+    // HOME should always go to page top
+    if (id === "#home") {
+      window.lenis.scrollTo(0, {
+        duration: 2,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+      });
+    } else {
+      const target = document.querySelector(id);
+      if (!target) return;
 
-  // HOME should always go to page top
-  if (id === "#home") {
-    window.lenis.scrollTo(1300, {
-      duration: 2,
-      easing: (t) => 1 - Math.pow(1 - t, 3)
-    });
-  } else {
-    const target = document.querySelector(id);
-    if (!target) return;
+      window.lenis.scrollTo(target, {
+        offset: -120,
+        duration: 2,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+      });
+    }
 
-    window.lenis.scrollTo(target, {
-      offset: -120,
-      duration: 2,
-      easing: (t) => 1 - Math.pow(1 - t, 3)
-    });
-  }
-
-  setIsOpen(false);
-};
+    setIsOpen(false);
+  };
   return (
     <header className="navbar">
       <div className="nav-left-desktop">
@@ -56,11 +55,21 @@ const scrollToSection = (id) => {
         <img src="/assets/final-og-rad-small.gif" alt="RAD Logo" />
       </div>
       <div className="nav-right-desktop">
-        <a href="https://licensingradar.beehiiv.com/" className="contact-btn">
-          NEWSLETTER
+        <a
+          href="https://licensingradar.beehiiv.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="contact-btn"
+        >
+          <span className="btn-text">NEWSLETTER</span>
+          <span className="btn-shine"></span>
+          <span className="btn-ring"></span>
         </a>
+
         <a className="contact-btn" onClick={() => scrollToSection("#contact")}>
-          CONTACT
+          <span className="btn-text">CONTACT</span>
+          <span className="btn-shine"></span>
+          <span className="btn-ring"></span>
         </a>
       </div>
       <button
@@ -73,13 +82,17 @@ const scrollToSection = (id) => {
         <span></span>
         <span></span>
       </button>
-     <nav className={`nav-menu ${isOpen ? "active" : ""}`}>
-  <a onClick={() => scrollToSection("#home")}>HOME</a>
-  <a onClick={() => scrollToSection("#services")}>SERVICES</a>
-  <a onClick={() => scrollToSection("#about")}>ABOUT</a>
-  <a className="contact-btn" onClick={() => scrollToSection("#contact")}>CONTACT</a>
-  <a className="contact-btn" href="#">NEWSLETTER</a>
-</nav>
+      <nav className={`nav-menu ${isOpen ? "active" : ""}`}>
+        <a onClick={() => scrollToSection("#home")}>HOME</a>
+        <a onClick={() => scrollToSection("#services")}>SERVICES</a>
+        <a onClick={() => scrollToSection("#about")}>ABOUT</a>
+        <a className="contact-btn" onClick={() => scrollToSection("#contact")}>
+          CONTACT
+        </a>
+        <a className="contact-btn" href="#">
+          NEWSLETTER
+        </a>
+      </nav>
     </header>
   );
 };

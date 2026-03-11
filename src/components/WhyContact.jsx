@@ -3,7 +3,7 @@ import React from "react";
 const WhyContact = () => {
   return (
     <>
-      <section className="why-rad">
+      <section className="why-rad" id="why-rad">
         <div className="why-rad-glow">
           <img src="/assets/glow.png" alt="" />
         </div>
@@ -61,7 +61,12 @@ const WhyContact = () => {
               entertainment, and IP – focused on what’s changing, why it matters
               and how to act.
             </p>
-            <a href="https://licensingradar.beehiiv.com/" className="newsletter-btn-main">
+            <a
+              href="https://licensingradar.beehiiv.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="newsletter-btn-main"
+            >
               READ THE NEWSLETTER
             </a>
           </div>
@@ -76,65 +81,60 @@ const WhyContact = () => {
       </section>
 
       <div className="contact-body" id="contact">
-
         <div className="container">
-
           <h1>CONTACT US</h1>
 
           <p className="subtitle">
-            Whether you're a global brand expanding into new markets or a creator
-            turning influence into IP. We will help you build what's next in
-            licensing, culture, and fandom.
+            Whether you're a global brand expanding into new markets or a
+            creator turning influence into IP. We will help you build what's
+            next in licensing, culture, and fandom.
           </p>
 
           <form>
-
             <div className="row">
-
               <div className="field">
                 <label>YOUR NAME</label>
                 <input type="text" placeholder="ENTER YOUR NAME" required />
               </div>
 
               <div className="field">
-                <label>CONTACT NUMBER</label>
-                <input type="tel" placeholder="ENTER CONTACT NUMBER" required />
+                <label>EMAIL</label>
+                <input type="email" placeholder="ENTER YOUR EMAIL" required />
               </div>
-
             </div>
 
             <div className="row-grp">
-            <div className="field subject">
-              <label>SUBJECT</label>
+              <div className="field subject">
+                <label>SUBJECT</label>
 
-              <select required>
-                <option value="">SELECT AN OPTION</option>
-                <option>General Inquiry</option>
-                <option>Project Collaboration</option>
-                <option>Support</option>
-              </select>
+                <select required>
+                  <option value="">SELECT AN OPTION</option>
+                  <option>General Inquiry</option>
+                  <option>Project Collaboration</option>
+                  <option>Support</option>
+                </select>
+              </div>
 
+              <div className="field">
+                <label>MESSAGE</label>
+
+                <textarea
+                  placeholder="ENTER YOUR MESSAGE"
+                  style={{
+                    fontFamily:
+                      "'Instrument Sans', 'Helvetica Neue', Arial, sans-serif",
+                  }}
+                  required
+                ></textarea>
+              </div>
             </div>
-
-            <div className="field">
-
-              <label>MESSAGE</label>
-
-              <textarea
-                placeholder="ENTER YOUR MESSAGE"
-                required
-              ></textarea>
-
-            </div>
-            </div>
-            <button type="submit">
-              SEND MESSAGE
+            <button type="submit" className="contact-btn">
+              <span className="btn-text">SEND MESSAGE</span>
+              <span className="btn-shine"></span>
+              <span className="btn-ring"></span>
             </button>
-
           </form>
-
         </div>
-
       </div>
     </>
   );
