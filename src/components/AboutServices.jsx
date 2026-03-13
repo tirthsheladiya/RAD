@@ -52,16 +52,33 @@ const AboutServices = () => {
         <img src="/assets/cap.svg" className="founder-car" alt="cap" />
         <div className="founder-card">
           <div className="left">
-            <img
-              src="/assets/founder-photo.png"
-              className="founder-photo"
-              alt=""
-            />
-            <img
-              src="/assets/founder-glow.png"
-              className="founder-glow"
-              alt=""
-            />
+            <div className="orbit-container">
+              <img src="/assets/founder-glow.png" className="founder-glow" />
+
+              <div className="orbit-ring ring1"></div>
+              <div className="orbit-ring ring2"></div>
+              <div className="orbit-ring ring3"></div>
+
+              {/* OUTER RING → 1 icon */}
+              <img src="/assets/cap.png" className="orbit orbit7" />
+
+              {/* MIDDLE RING → 3 icons */}
+              <img src="/assets/gamepad.png" className="orbit orbit6" />
+              <img src="/assets/shirt.png" className="orbit orbit5" />
+              <img src="/assets/music.png" className="orbit orbit4" />
+
+              {/* INNER RING → 3 icons */}
+              <img src="/assets/shoe.png" className="orbit orbit3" />
+              <img src="/assets/car.png" className="orbit orbit2" />
+              <img src="/assets/gamepad.png" className="orbit orbit1" />
+
+              <img src="/assets/founder.png" className="founder-photo" />
+              <div className="founder-name">
+                  <div className="founder-blur"></div>
+ <h3>NILESH DESHMUKH</h3>
+                <p>FOUNDER, RAD WORLDWIDE</p>
+              </div>
+            </div>
           </div>
           <div className="right">
             <div className="founder-title">
@@ -91,7 +108,7 @@ const AboutServices = () => {
                 That’s the work I do through RAD Worldwide.
               </p>
             </div>
-            <div className="mail-container">
+             <div className="mail-container">
               <a href="https://licensingradar.beehiiv.com/" 
                target="_blank"
               className="mail-icons">
@@ -120,7 +137,7 @@ const AboutServices = () => {
         </div>
       </div>
 
-      <div className="service-stack-scene" id="services">
+      <div id="services" className="service-stack-scene">
         <h2 className="services-title">SERVICES</h2>
         <div className="service-stack-inner">
           <div className="service-card premium-card" data-card="6">

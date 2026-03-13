@@ -20,7 +20,7 @@ export const initLenis = () => {
   gsapCore.ticker.add((time) => lenis.raf(time * 1000));
   gsapCore.ticker.lagSmoothing(500, 33);
 
-  window.lenis = lenis; 
+  window.lenis = lenis;
 
   return lenis;
   let bar = document.getElementById("scroll-progress");
@@ -102,25 +102,68 @@ export const initAnimations = (lenis) => {
     return `polygon(${ax.toFixed(1)}px ${ay.toFixed(1)}px, ${rx.toFixed(1)}px ${ry.toFixed(1)}px, ${lx.toFixed(1)}px ${ry.toFixed(1)}px)`;
   }
 
-  function setInitialState() {
-    if (logoWrapper) gsap.set(logoWrapper, { scale: 1, force3D: true });
-    measureLogo();
+  // ─── helpers for the new SVG-mask intro ────────────────────────────────────
+  // Logo canvas dimensions (must match the <image> width/height in Intro.jsx)
+  const LOGO_W = 865;
+  const LOGO_H = 513;
+  // Updated for smaller triangle: M429.5 194L445.5 236H413.5
+  // Triangle M429.5 152.5 L463.5 236 H398.5  →  bounding-box midpoint:
+  const APEX_X = 431; // (398.5 + 463.5) / 2
+  const APEX_Y = 194.25; // (152.5 + 236)   / 2
 
+  function updateIntroPositions() {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+
+    // Position canvas so the triangle's visual centre lands at screen centre.
+    // Using APEX_X/Y (not LOGO_W/2) works correctly on every viewport size.
+    const startX = cx - APEX_X;
+    const startY = cy - APEX_Y;
+
+    const svgLogo = document.getElementById("logo-wrapper-svg");
+    const maskEl = document.getElementById("mask-elements");
+
+    if (svgLogo) gsap.set(svgLogo, { x: startX, y: startY });
+    if (maskEl) gsap.set(maskEl, { x: startX, y: startY });
+  }
+
+  // On mobile the 865px canvas overflows — scale it down to fit 85vw
+  function getMobileScale() {
+    return Math.min(1, (window.innerWidth * 0.85) / LOGO_W);
+  }
+
+  function setIntroSVGOrigins() {
+    const svgLogo = document.getElementById("logo-wrapper-svg");
+    const triangle = document.getElementById("intro-triangle");
+    if (svgLogo)
+      gsap.set(svgLogo, { transformOrigin: `${APEX_X}px ${APEX_Y}px` });
+    if (triangle) gsap.set(triangle, { transformOrigin: "50% 50%" });
+  }
+  // ────────────────────────────────────────────────────────────────────────────
+
+  function setInitialState() {
     if (heroSection) {
-      gsap.set(heroSection, {
-        opacity: 0,
-        zIndex: 25,
-        clipPath: isMobile() ? "none" : aGapClip(1),
-      });
+      gsap.set(heroSection, { opacity: 1, zIndex: 1, clipPath: "none" });
     }
     gsap.set([heroPill, heroH1, heroP], { opacity: 1, y: 0 });
     gsap.set(heroFloats, { opacity: 1, y: 0, scale: 1 });
-    gsap.set(allFloats, { opacity: 1, y: 0, rotation: 0, scale: 1 });
-    if (introSection)
-      gsap.set(introSection, {
-        opacity: 1,
-        backgroundColor: "rgba(135,51,232,1)",
-      });
+
+    const redShield = document.getElementById("red-shield");
+    const introSvg = document.getElementById("intro-svg");
+    const svgLogo = document.getElementById("logo-wrapper-svg");
+    const triangle = document.getElementById("intro-triangle");
+    if (redShield) gsap.set(redShield, { opacity: 1, visibility: "visible" });
+    if (introSvg) gsap.set(introSvg, { opacity: 1, visibility: "visible" });
+
+    // Position first, THEN set origins, THEN apply mobile scale
+    // (scale must pivot around the triangle centre, not element origin)
+    updateIntroPositions();
+    setIntroSVGOrigins();
+    const ms = getMobileScale();
+    if (svgLogo) gsap.set(svgLogo, { scale: ms, force3D: true });
+    if (triangle) gsap.set(triangle, { scale: ms });
+
+    if (introSection) gsap.set(introSection, { opacity: 1 });
     if (heroNavbar) gsap.set(heroNavbar, { opacity: 0, pointerEvents: "none" });
     lockServicesTitle();
   }
@@ -181,111 +224,134 @@ export const initAnimations = (lenis) => {
 
   initNewsletterShake();
   let introST;
-  let navbarShown = false;
 
   function createIntro() {
-    if (introST) introST.kill();
-    navbarShown = false;
+    if (introST) {
+      introST.kill();
+      introST = null;
+    }
     if (heroNavbar) gsap.set(heroNavbar, { opacity: 0, pointerEvents: "none" });
 
-    const scrollDist = window.innerHeight * 1.8;
     const introEl = document.querySelector(".intro");
-    if (!introEl) return;
+    const redShield = document.getElementById("red-shield");
+    const introSvg = document.getElementById("intro-svg");
+    const svgLogo = document.getElementById("logo-wrapper-svg");
+    const triangle = document.getElementById("intro-triangle");
 
-    introST = ScrollTrigger.create({
-      trigger: introEl,
-      start: "top top",
-      end: `+=${scrollDist}`,
-      scrub: 0.8,
-      pin: true,
-      anticipatePin: 1,
+    if (!introEl || !redShield || !introSvg || !svgLogo || !triangle) return;
 
-      onUpdate: (self) => {
-        const p = self.progress;
-        if (logoWrapper)
-          gsap.set(logoWrapper, {
-            scale: 1 + p * 60,
+    updateIntroPositions();
+    setIntroSVGOrigins();
+
+    const onResize = () => updateIntroPositions();
+    window.addEventListener("resize", onResize);
+
+    const scrollDist = window.innerHeight * 2;
+    const HERO_REVEAL_FRAC = 0.07;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: introEl,
+        start: "top top",
+        end: `+=${scrollDist}`,
+        scrub: 0.5,
+        pin: true,
+        anticipatePin: 1,
+
+        onLeave: () => {
+          gsap.set([introSvg, redShield], { opacity: 0, visibility: "hidden" });
+          const scrollDown = introEl.querySelector(".scroll-down");
+          if (scrollDown) scrollDown.style.display = "none";
+          if (heroSection)
+            gsap.set(heroSection, { opacity: 1, zIndex: 1, clipPath: "none" });
+          if (heroNavbar)
+            gsap.set(heroNavbar, { opacity: 1, pointerEvents: "auto" });
+          window.removeEventListener("resize", onResize);
+        },
+
+        onEnterBack: () => {
+          updateIntroPositions();
+          setIntroSVGOrigins();
+          const ms = getMobileScale();
+          gsap.set(svgLogo, { scale: ms, force3D: true });
+          gsap.set(triangle, { scale: ms });
+
+          gsap.set(allFloats, {
             opacity: 1,
-            force3D: true,
+            y: 0,
+            scale: 1,
+            // filter: "blur(0px)",
           });
 
-        floatsUp.forEach((el, i) => {
-          const fp = gsap.utils.clamp(0, 1, (p - 0.03 - i * 0.02) / 0.22);
-          gsap.set(el, { y: -fp * 150 + "vh", opacity: 1 - fp });
-        });
-        floatsDown.forEach((el, i) => {
-          const fp = gsap.utils.clamp(0, 1, (p - 0.05 - i * 0.02) / 0.22);
-          gsap.set(el, { y: fp * 150 + "vh", opacity: 1 - fp });
-        });
-
-        const s = 1 + p * 17;
-        const fade = gsap.utils.clamp(0, 1, (p - 0.93) / 0.07);
-
-        if (heroSection) {
-          if (!isMobile()) {
-            heroSection.style.clipPath = aGapClip(s);
-          } else {
-            // Prevent continuous re-evaluation on mobile if already 'none'
-            if (heroSection.style.clipPath !== "none") {
-              heroSection.style.clipPath = "none";
-            }
-          }
-          gsap.set(heroSection, { opacity: fade });
-        }
-        if (introSection) gsap.set(introSection, { opacity: 1 - fade });
-
-        if (fade > 0.6 && !navbarShown) {
-          navbarShown = true;
+          gsap.set(redShield, { opacity: 1, visibility: "visible" });
+          gsap.set(introSvg, { opacity: 1, visibility: "visible" });
+          const scrollDown = introEl.querySelector(".scroll-down");
+          if (scrollDown) scrollDown.style.display = "block";
+          if (heroSection)
+            gsap.set(heroSection, { opacity: 1, zIndex: 1, clipPath: "none" });
           if (heroNavbar)
-            gsap.to(heroNavbar, {
-              opacity: 1,
-              duration: 0.5,
-              ease: "power4.out",
-              pointerEvents: "auto",
-            });
-        } else if (fade <= 0.6 && navbarShown) {
-          navbarShown = false;
-          if (heroNavbar)
-            gsap.to(heroNavbar, {
-              opacity: 0,
-              duration: 0.4,
-              ease: "power3.inOut",
-              pointerEvents: "none",
-            });
-        }
-      },
-
-      onLeave: () => {
-        if (introSection)
-          gsap.set(introSection, {
-            opacity: 0,
-            backgroundColor: "#100318",
-            visibility: "hidden",
-          });
-        if (heroSection)
-          gsap.set(heroSection, { opacity: 1, zIndex: -1, clipPath: "none" });
-      },
-
-      onEnterBack: () => {
-        if (logoWrapper) gsap.set(logoWrapper, { scale: 1, force3D: true });
-        measureLogo();
-        if (introSection)
-          gsap.set(introSection, {
-            visibility: "visible",
-            backgroundColor: "rgba(135,51,232,1)",
-          });
-        if (heroSection)
-          gsap.set(heroSection, {
-            opacity: 0,
-            zIndex: 25,
-            clipPath: isMobile() ? "none" : aGapClip(1),
-          });
+            gsap.set(heroNavbar, { opacity: 0, pointerEvents: "none" });
+          window.addEventListener("resize", onResize);
+        },
       },
     });
+
+    introST = tl.scrollTrigger;
+
+    tl.to(
+      [triangle, svgLogo],
+      {
+        scale: 200,
+        ease: "power2.inOut",
+        duration: 1,
+      },
+      0,
+    );
+    tl.to(
+      allFloats,
+      {
+        opacity: 0,
+        y: -60,
+        scale: 0.6,
+        filter: "blur(6px)",
+        stagger: 0.03,
+        ease: "power2.out",
+        duration: 0.3,
+      },
+      0.05,
+    );
+    tl.to(
+      redShield,
+      {
+        opacity: 0,
+        duration: 0.1,
+      },
+      HERO_REVEAL_FRAC,
+    );
+
+    if (heroNavbar) {
+      tl.to(
+        heroNavbar,
+        {
+          opacity: 1,
+          pointerEvents: "auto",
+          duration: 0.2,
+          ease: "power2.out",
+        },
+        0.75,
+      );
+    }
+
+    tl.to(
+      introSvg,
+      {
+        opacity: 0,
+        duration: 0.05,
+      },
+      "-=0.05",
+    );
   }
   createIntro();
-
-
 
   let serviceST;
   function createServices() {
@@ -684,7 +750,7 @@ export const initAnimations = (lenis) => {
               end: "bottom top",
               scrub: 1,
             },
-          }
+          },
         );
       if (whyGlow)
         gsap.to(whyGlow, {
@@ -894,7 +960,6 @@ export const initAnimations = (lenis) => {
     initWhy();
     initContact();
     initFooter();
-    initNavbarVisibility();
     lockServicesTitle();
     ScrollTrigger.refresh(true);
   }

@@ -44,16 +44,32 @@
     background: #120018;
     box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.4);
   }
-  /* ================= INTRO ================= */
-  .intro {
+ .intro {
     position: relative;
     height: 100vh;
-    background-color: #8733E8;
-    overflow: hidden;
-    clip-path: inset(0);
+    background: transparent;
+    overflow: visible; /* must NOT clip — SVG scales to 200x beyond bounds */
     z-index: 20;
-    isolation: isolate;
   }
+
+  .red-shield {
+    position: absolute;
+    inset: 0;
+    background: #22082A;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* Full-screen SVG that paints the dark intro bg + the expanding triangle mask */
+.intro-svg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
 
   .scene {
     position: absolute;
@@ -112,16 +128,20 @@
 
 
   /* ================= INTRO FLOATING OBJECTS ================= */
-  .intro-float {
-    position: absolute;
-    pointer-events: none;
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    z-index: 5;
-    width: 2rem;
-  }
+.intro-float {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 
+  z-index: 30; /* higher than SVG */
+  width: 2rem;
+}
+.intro-hide-floats .intro-float{
+  opacity:0;
+  transform:translateY(-40px) scale(0.8);
+}
   .if-shirt {
     top: 16%;
     left: 5%;
@@ -191,6 +211,7 @@
     animation: scrollBounce 2s ease-in-out infinite;
     height: 5rem;
     filter: invert(1);
+     z-index: 30; /* higher than SVG */
   }
 
   .navbar {
@@ -260,7 +281,7 @@ background: rgba(75, 2, 120, 0.2);
   }
 
   .nav-center img {
-    height: 5.625rem;
+    height: 3.625rem;
   }
 
 .contact-btn{
@@ -875,116 +896,279 @@ background: rgba(75, 2, 120, 0.2);
       margin-top: 1rem;
     }
   }
+/* ================= SECTION ================= */
+/* ================= SECTION ================= */
 
-.founder-section {
-    margin-top: 4rem;
-    position: relative;
-    width: 100%;
-    /* min-height: 100vh; */
-    background-color: #14001A;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2rem;
-    /* z-index: -37; */
+.founder-section{
+  margin-top:4rem;
+  position:relative;
+  width:100%;
+  /* background:#0f0216; */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* floating corner icons */
+
+.founder-car{
+  position:absolute;
+  top:-4rem;
+  right:-2rem;
+  width:clamp(6rem,10vw,12rem);
+  z-index:2;
+}
+
+.founder-gamepad{
+  position:absolute;
+  bottom:-10%;
+  left:-3rem;
+  width:clamp(6rem,10vw,12rem);
+  z-index:2;
+}
+
+
+
+/* ================= CARD ================= */
+
+.founder-card{
+  min-height:450px;
+  background:#1a0624;
+  border-radius:2rem;
+  display:flex;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.05);
+  overflow:hidden;
+}
+
+/* galaxy overlay */
+
+.founder-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("/assets/overlay.png") center/cover no-repeat;
+  opacity:.15;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+
+
+/* ================= LEFT SIDE ================= */
+
+.founder-card .left{
+  width:45%;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+
+/* ================= ORBIT CONTAINER ================= */
+
+.orbit-container{
+  position:relative;
+  width:420px;
+  height:420px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+
+/* ================= ORBIT RINGS ================= */
+
+.orbit-ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(180,120,255,.2);
+}
+
+/* outer ring */
+
+.ring1{
+  width:320px;
+  height:320px;
+}
+
+/* middle ring */
+
+.ring2{
+  width:260px;
+  height:260px;
+}
+
+/* inner ring */
+
+.ring3{
+  width:200px;
+  height:200px;
+}
+
+
+
+/* ================= FOUNDER GLOW ================= */
+
+/* .founder-glow{
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  border:1px solid rgba(180,120,255,.15);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+} */
+
+.founder-name{
+  position:absolute;
+  bottom:-5px;
+  left:45%;
+  transform:translateX(-50%);
+  text-align:center;
+  z-index:6;
+  width: 100%;
+  line-height: 1.4rem;
+}
+
+.founder-name h3{
+  font-size:2rem;
+  letter-spacing:3px;
+  color:#ffffff;
+  font-weight:300;
+  word-wrap: normal   ;
+}
+
+.founder-name p{
+  font-size:1rem;
+  /* letter-spacing:2px; */
+  color:#caa4ff;
+  margin-top:6px;
+}
+
+/* ================= ORBIT ICONS ================= */
+
+.orbit{
+  position:absolute;
+  width:45px;
+  height:45px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 8px rgba(180,120,255,.5));
+  z-index:2;
+}
+
+/* ================= ORBIT ANIMATIONS ================= */
+@keyframes orbitInner{
+  from{
+    transform:rotate(0deg) translateX(100px) rotate(0deg);
   }
-
-  .founder-car {
-    position: absolute;
-    top: -4rem;
-    right: -2rem;
-    width: clamp(6rem, 10vw, 12rem);
-    height: auto;
-    object-fit: contain;
-    z-index: 2;
+  to{
+    transform:rotate(360deg) translateX(100px) rotate(-360deg);
   }
+}
 
-  .founder-gamepad {
-    position: absolute;
-    bottom: -10%;
-    left: -3rem;
-    width: clamp(6rem, 10vw, 12rem);
-    height: auto;
-    object-fit: contain;
-    z-index: 2;
+@keyframes orbitMiddle{
+  from{
+    transform:rotate(0deg) translateX(130px) rotate(0deg);
   }
-
-  .founder-card {
-    max-width: 90rem;
-    width: 100%;
-    height: 30rem;
-    background-color: #23092D;
-    /* background-image: url('/assets/founder-bg.png'); */
-    background-size: cover;
-    background-position: center;
-    border-radius: 1rem;
-    display: flex;
-    overflow: hidden;
-    z-index: 1;
+  to{
+    transform:rotate(360deg) translateX(130px) rotate(-360deg);
   }
+}
 
-  .founder-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url("/assets/overlay.png") center/cover no-repeat;
-    opacity: 0.20;
-    /* control star visibility */
-    mix-blend-mode: screen;
-    pointer-events: none;
-    z-index: 0;
-
+@keyframes orbitOuter{
+  from{
+    transform:rotate(0deg) translateX(160px) rotate(0deg);
   }
-
-  .founder-card .left {
-    width: 45%;
-    height: 100%;
-    /* background-color: red; */
-    position: relative;
-    order: 1;
+  to{
+    transform:rotate(360deg) translateX(160px) rotate(-360deg);
   }
+}
 
-  .founder-card .right {
-    width: 55%;
-    height: 100%;
-    /* background-color: blue; */
-    font-size: 1rem;
-    padding: 1.5rem 3rem 2rem 2rem;
-    background: linear-gradient(to right, #FFFFFF, #CB78FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    order: 2;
 
-  }
+/* ================= APPLY ORBIT ================= */
 
-  .founder-photo {
-    width: 86%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 3;
-  }
+.orbit1{
+  animation:orbitOuter 20s linear infinite;
+}
 
-  .founder-title h2 {
-    font-size: 2.8rem;
-    font-weight: 300;
-    /* color-: white; */
-    margin-bottom: 1rem;
-    text-align: left;
-  }
+.orbit2{
+  animation:orbitOuter 20s linear infinite;
+  animation-delay:-16s;
+}
 
-  .founder-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-  }
+.orbit3{
+  animation:orbitOuter 20s linear infinite;
+  animation-delay:-30s;
+}
 
- .mail-container {
+/* middle ring */
+
+.orbit4{
+  animation:orbitMiddle 19s linear infinite;
+}
+
+.orbit5{
+  animation:orbitMiddle 19s linear infinite;
+  animation-delay:-16s;
+}
+
+.orbit6{
+  animation:orbitMiddle 19s linear infinite;
+  animation-delay:-30s;
+}
+
+/* inner ring */
+
+.orbit7{
+  animation:orbitInner 12s linear infinite;
+}
+/* ================= FOUNDER IMAGE ================= */
+
+.founder-photo{
+  position:absolute;
+  height:280px;
+  bottom:10%;
+  left:45%;
+  transform:translateX(-50%);
+  z-index:5;
+  filter:drop-shadow(0 0 20px rgba(0,0,0,.6));
+}
+/* ================= RIGHT SIDE ================= */
+.founder-card .right{
+  width:55%;
+  padding:2rem 3rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+/* title */
+
+.founder-title h2{
+  font-size:2.8rem;
+  letter-spacing:2px;
+  background:linear-gradient(to bottom,#fff,#d8b4fe);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+/* text */
+
+.founder-text p{
+  margin-top:1rem;
+  /* line-height:1.6; */
+  color:#e9d5ff;
+  opacity:.9;
+}
+
+
+
+/* ================= SOCIAL ICONS ================= */
+.mail-container {
     display: flex;
     /* justify-content: center; */
     align-items: center;
@@ -1062,114 +1246,126 @@ background: rgba(75, 2, 120, 0.2);
   }
 
 
-  @media (max-width:1024px) {
+/* ================= RESPONSIVE ================= */
 
-    .founder-section {
-      padding: 2rem 0;
-    }
+@media(max-width:1024px){
 
-    .founder-card {
-      flex-direction: column;
-      height: auto;
-      border-radius: 1.5rem;
-    }
-
-    .founder-card .left {
-      width: 100%;
-      height: 22rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      overflow: hidden;
-    }
-
-    .founder-card .left .founder-photo {
-      width: auto;
-      max-width: 100%;
-      height: 115%;
-      object-fit: contain;
-      object-position: bottom;
-      transform: translateY(2.5rem);
-    }
-
-    .founder-card .right {
-      width: 100%;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .founder-glow {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-
-    .founder-title h2 {
-      text-align: center;
-    }
-
-    .mail-container {
-      justify-content: center;
-    }
-
+  .founder-card{
+    flex-direction:column;
+    align-items:center;
+    padding:3rem 2rem;
   }
 
-  @media (max-width:768px) {
-
-    .founder-section {
-      padding: 1rem 0;
-    }
-
-    .founder-card .left {
-      height: 18rem;
-      order: 2;
-      /* transform: translateX(-50%); */
-    }
-
-    .founder-photo {
-      /* object-position: top;
-       */
-      width: 100%;
-    }
-
-    .founder-card .right {
-      padding: 1.8rem 1.5rem;
-      font-size: 0.9rem;
-      order: 1;
-    }
-
-    .founder-title h2 {
-      font-size: 1.85rem;
-      margin-bottom: 2rem;
-    }
-
-    .mail-icons {
-      width: 3rem;
-      height: 3rem;
-    }
-
-    .mail-icons img {
-      width: 1.3rem;
-    }
-
-    .founder-car {
-      top: -3rem;
-      right: -1rem;
-      width: clamp(6rem, 10vw, 12rem);
-    }
-
-    .founder-gamepad {
-      bottom: -1.5rem;
-      left: -0.8rem;
-      width: clamp(6rem, 10vw, 12rem);
-    }
-
+  .founder-card .left{
+    width:100%;
+    margin-bottom:2rem;
   }
+
+  .founder-card .right{
+    width:100%;
+    text-align:center;
+    padding:0;
+  }
+
+  .mail-container{
+    justify-content:center;
+  }
+
+}
+
+
+@media(max-width:768px){
+ .founder-card{
+    flex-direction:column-reverse;
+    gap:40px;
+  }
+
+  .left{
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
+
+  .right{
+    width:100%;
+    text-align:center;
+  }
+  .orbit-container{
+    width:300px;
+    height:300px;
+  }
+
+  .founder-photo{
+    height:240px;
+  }
+
+  .orbit{
+    width:35px;
+    height:35px;
+  }
+
+  .ring1{
+    width:260px;
+    height:260px;
+  }
+
+  .ring2{
+    width:200px;
+    height:200px;
+  }
+
+  .ring3{
+    width:140px;
+    height:140px;
+  }
+
+  .founder-title h2{
+    font-size:2rem;
+  }
+@keyframes orbitInner{
+  from{
+    transform:rotate(0deg) translateX(100px) rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg) translateX(100px) rotate(-360deg);
+  }
+}
+
+@keyframes orbitMiddle{
+  from{
+    transform:rotate(0deg) translateX(130px) rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg) translateX(130px) rotate(-360deg);
+  }
+}
+
+@keyframes orbitOuter{
+  from{
+    transform:rotate(0deg) translateX(70px) rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg) translateX(70px) rotate(-360deg);
+  }
+}
+.founder-photo{
+  height:200px;
+}
+.founder-name h3{
+  font-size: 1.5rem;
+}.founder-name{
+  position:absolute;
+  bottom:-5px;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  z-index:6;
+  width: 100%;
+  line-height: 1.4rem;
+}
+
+
+}
   .services-title {
     text-align: center;
     font-size: clamp(1.875rem, 5vw, 3.25rem);

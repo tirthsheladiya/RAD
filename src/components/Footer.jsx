@@ -1,24 +1,28 @@
 import React from "react";
 
 const scrollToSection = (id) => {
-  const target = document.querySelector(id);
+  if (!window.lenis) return;
 
-  if (!target) return;
-
-  if (window.lenis) {
-    window.lenis.scrollTo(target, {
-      offset: -120,
+  // Home should always go to top
+  if (id === "#home") {
+    window.lenis.scrollTo(0, {
       duration: 2,
       easing: (t) => 1 - Math.pow(1 - t, 3),
     });
-  } else {
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    return;
   }
-};
 
+  const target = document.querySelector(id);
+  if (!target) return;
+
+  // Correct scroll position even with GSAP pinned sections
+  const y = target.getBoundingClientRect().top + window.scrollY - 120;
+
+  window.lenis.scrollTo(y, {
+    duration: 2,
+    easing: (t) => 1 - Math.pow(1 - t, 3),
+  });
+};
 const Footer = () => {
   return (
     <footer className="rad-footer">
@@ -33,7 +37,7 @@ const Footer = () => {
 
       <div className="footer-links">
         <div className="footer-col">
-          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#who-we-are")}}>Who are we</a>
+          <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#home")}}>Who are we</a>
           <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#services")}}>Services</a>
           <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#partners")}}>Who we partner with</a>
           <a href="#" onClick={(e)=>{e.preventDefault(); scrollToSection("#about")}}>About</a>
