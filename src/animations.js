@@ -62,7 +62,7 @@ export const initAnimations = (lenis) => {
 
   const floatsUp = document.querySelectorAll(".intro-float[data-dir='up']");
   const floatsDown = document.querySelectorAll(".intro-float[data-dir='down']");
-  const allFloats = document.querySelectorAll(".intro-float");
+  const allFloats = document.querySelectorAll(".intro-float ,.scroll-down");
 
   const heroNavbar = document.querySelector(".navbar");
   const heroPill = heroSection?.querySelector(".tag-pill");
@@ -171,7 +171,7 @@ export const initAnimations = (lenis) => {
 
   function initHeroPremiumFloat() {
     const floats = document.querySelectorAll(
-      ".hero-section .float ,.founder-gamepad,.founder-car",
+      ".hero-section .float ,.founder-gamepad,.founder-car,.intro-float",
     );
 
     if (!floats.length) return;
@@ -237,6 +237,7 @@ export const initAnimations = (lenis) => {
     const introSvg = document.getElementById("intro-svg");
     const svgLogo = document.getElementById("logo-wrapper-svg");
     const triangle = document.getElementById("intro-triangle");
+    const scrollDown = introEl ? introEl.querySelector(".scroll-down") : null;
 
     if (!introEl || !redShield || !introSvg || !svgLogo || !triangle) return;
 
@@ -260,8 +261,7 @@ export const initAnimations = (lenis) => {
 
         onLeave: () => {
           gsap.set([introSvg, redShield], { opacity: 0, visibility: "hidden" });
-          const scrollDown = introEl.querySelector(".scroll-down");
-          if (scrollDown) scrollDown.style.display = "none";
+          if (scrollDown) gsap.set(scrollDown, { display: "none", opacity: 0 });
           if (heroSection)
             gsap.set(heroSection, { opacity: 1, zIndex: 1, clipPath: "none" });
           if (heroNavbar)
@@ -285,8 +285,7 @@ export const initAnimations = (lenis) => {
 
           gsap.set(redShield, { opacity: 1, visibility: "visible" });
           gsap.set(introSvg, { opacity: 1, visibility: "visible" });
-          const scrollDown = introEl.querySelector(".scroll-down");
-          if (scrollDown) scrollDown.style.display = "block";
+          if (scrollDown) gsap.set(scrollDown, { display: "block", opacity: 1, y: 0 });
           if (heroSection)
             gsap.set(heroSection, { opacity: 1, zIndex: 1, clipPath: "none" });
           if (heroNavbar)
@@ -320,6 +319,15 @@ export const initAnimations = (lenis) => {
       },
       0.05,
     );
+
+    // Fade out scroll-down arrow very early — before the hero is revealed
+    if (scrollDown) {
+      tl.to(
+        scrollDown,
+        { opacity: 0, y: 20, duration: 0.15, ease: "power2.out" },
+        0.03,
+      );
+    }
     tl.to(
       redShield,
       {
@@ -699,9 +707,11 @@ export const initAnimations = (lenis) => {
   function initPageStack() {
     const page2 = document.querySelector(".page-2-wrapper");
     const page3 = document.querySelector(".page-3-wrapper");
+    const page4 = document.querySelector(".page-4-wrapper");
 
     if (!page2 || !page3) return;
 
+    // Pin page2 while page3 scrolls over it
     ScrollTrigger.create({
       trigger: page2,
       start: "bottom bottom",
@@ -710,6 +720,18 @@ export const initAnimations = (lenis) => {
       pinSpacing: false,
       id: "pageStack",
     });
+
+    // Pin page3 while page4 scrolls over it
+    if (page4) {
+      ScrollTrigger.create({
+        trigger: page3,
+        start: "bottom bottom",
+        end: () => "+=" + page4.offsetHeight,
+        pin: true,
+        pinSpacing: false,
+        id: "pageStack4",
+      });
+    }
   }
   initPageStack();
 
@@ -877,6 +899,7 @@ export const initAnimations = (lenis) => {
     const content = document.querySelector(".footer-links");
     const logo = document.querySelector(".footer-logo");
     const cols = document.querySelectorAll(".footer-col");
+    const contactVector = document.querySelector(".contact-vector"); // sticky vector in WhyContact
 
     if (!footer || !vector) return;
 
@@ -888,27 +911,40 @@ export const initAnimations = (lenis) => {
       pinSpacing: false,
     });
 
-    // STEP 2: OVERLAY THE CURVE
-    // This animates the curved ellipse sliding UP to cover the text
-    if (ellipse) {
-      gsap.fromTo(
-        ellipse,
-        { y: "100%", scale: 1.2 }, // Start below the text
-        {
-          y: "0%",
-          scale: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: footer,
-            start: "top bottom",
-            end: "top top",
-            scrub: 1,
+    // 1. Fade navbar out as soon as footer starts entering the viewport
+    if (heroNavbar) {
+      gsap.to(heroNavbar, {
+        opacity: 0,
+        pointerEvents: "none",
+        duration: 0.3,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: footer,
+          start: "top bottom", // footer's top hits bottom of viewport
+          end: "top 80%",      // completes fade quickly
+          scrub: true,
+          onLeaveBack: () => {
+            gsap.to(heroNavbar, { opacity: 1, pointerEvents: "auto", duration: 0.3 });
           },
         },
-      );
+      });
     }
 
-    // STEP 3: RE-INTEGRATE YOUR EXISTING ANIMATIONS
+    // 2. Smoothly fade the contact-vector out as footer slides over it
+    //    — prevents the sudden pop/disappear when sticky detaches
+    if (contactVector) {
+      gsap.to(contactVector, {
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: footer,
+          start: "top bottom", // start fading as soon as footer enters from below
+          end: "top 60%",      // fully gone before footer covers it
+          scrub: true,
+        },
+      });
+    }
+
     // Logo animation
     if (logo) {
       gsap.from(logo, {

@@ -66,7 +66,7 @@ const Intro = () => {
             <img src="/assets/music.png" className="intro-float if-music" data-dir="down" alt="" />
             <img src="/assets/shoe.png" className="intro-float if-shoe" data-dir="down" alt="" />
 
-               <img src="/assets/scrolldown.png" className="scroll-down" alt="" />
+               <img src="/assets/scrolldown.png" className="scroll-down " alt="" />
         </section>
     );
 };

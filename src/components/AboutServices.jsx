@@ -54,7 +54,7 @@ const AboutServices = () => {
           <div className="left">
             <div className="orbit-container">
               <img src="/assets/founder-glow.png" className="founder-glow" />
-
+          
               <div className="orbit-ring ring1"></div>
               <div className="orbit-ring ring2"></div>
               <div className="orbit-ring ring3"></div>
@@ -74,8 +74,7 @@ const AboutServices = () => {
 
               <img src="/assets/founder.png" className="founder-photo" />
               <div className="founder-name">
-                  <div className="founder-blur"></div>
- <h3>NILESH DESHMUKH</h3>
+                <h3>NILESH DESHMUKH</h3>
                 <p>FOUNDER, RAD WORLDWIDE</p>
               </div>
             </div>
@@ -108,10 +107,12 @@ const AboutServices = () => {
                 That’s the work I do through RAD Worldwide.
               </p>
             </div>
-             <div className="mail-container">
-              <a href="https://licensingradar.beehiiv.com/" 
-               target="_blank"
-              className="mail-icons">
+            <div className="mail-container">
+              <a
+                href="https://licensingradar.beehiiv.com/"
+                target="_blank"
+                className="mail-icons"
+              >
                 <img
                   className="mail"
                   src="/assets/mail (1).png"

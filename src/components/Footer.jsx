@@ -25,9 +25,8 @@ const scrollToSection = (id) => {
 };
 const Footer = () => {
   return (
-    <footer className="rad-footer">
+    <footer className="rad-footer" style={{ paddingTop: "clamp(5rem, 7vw, 7rem)" }}>
       <div className="footer-curve-wrapper">
-        <img src="/assets/vector.png" className="footer-vector" alt="RAD WORLDWIDE"/>
         <img src="/assets/ellipse 47.png" className="footer-ellipse" alt="" />
       </div>
 

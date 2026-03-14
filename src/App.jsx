@@ -55,6 +55,8 @@ function App() {
                 </div>
                 <div className="page-3-wrapper">
                     <WhyContact />
+                </div>
+                <div className="page-4-wrapper">
                     <Footer />
                 </div>
             </div>

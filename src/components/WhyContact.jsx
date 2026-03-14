@@ -135,6 +135,9 @@ const WhyContact = () => {
             </button>
           </form>
         </div>
+          <div className="contact-vector">
+          <img src="/assets/vector.png" className="footer-vector" alt="RAD WORLDWIDE"/>
+        </div>
       </div>
     </>
   );
